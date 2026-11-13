@@ -1,0 +1,34 @@
+﻿@page "/registro"
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+        <h3 class="text-center mb-4">Crear una cuenta</h3>
+        <form>
+            <div class="mb-3">
+                <label for="regNombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="regNombre" required placeholder="Ingresa tu nombre completo">
+            </div>
+            <div class="mb-3">
+                <label for="regEmail" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="regEmail" required placeholder="Ingresa tu correo electrónico">
+            </div>
+            <div class="mb-3">
+                <label for="regPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="regPassword" required placeholder="Ingresa tu contraseña">
+            </div>
+            <div class="mb-3">
+                <label for="regPasswordConfirm" class="form-label">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="regPasswordConfirm" required placeholder="Confirma tu contraseña">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+            <p class="text-center mt-3 mb-0">
+                ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+@code {
+
+}

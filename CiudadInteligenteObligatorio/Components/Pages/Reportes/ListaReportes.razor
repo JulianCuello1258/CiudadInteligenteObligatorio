@@ -1,0 +1,88 @@
+﻿@page "/reportes"
+@rendermode InteractiveServer
+@using CiudadInteligenteObligatorio.Models
+@using CiudadInteligenteObligatorio.Service
+@inject ReporteApiService reporteApiService
+@inject NavigationManager Navigation
+
+<h3>ListaReportes</h3>
+
+<a href="/reportes/nuevo" class="btn btn-primary mb-3">Nuevo Reporte</a>
+
+@if (Cargando)
+{
+    <p>Cargando reportes...</p>
+}
+else if (error != null)
+{
+    <p class="text-danger">@error</p>
+}
+else if (busqueda.RepXPagina.Count == 0)
+{
+    <p>No hay reportes que coincidan con la busqueda.</p>
+}
+else
+{
+    <p>Total: @busqueda.Total reportes</p>
+    @foreach (var reporte in busqueda.RepXPagina)
+    {
+        <ReporteCard Reporte="reporte" OnVerDetalle="VerDetalle" />
+    }
+
+    <button class="btn btn-secondary" disabled="@(filtro.Pagina == 1)" @onclick="Anterior">Anterior</button>
+    <span> Página @busqueda.Pagina de @busqueda.TotalPaginas </span>
+    <button class="btn btn-secondary" disabled="@(filtro.Pagina >= busqueda.TotalPaginas)" @onclick="Siguiente">Siguiente</button>
+}
+
+@code {
+    private FiltroReportes filtro = new();
+    private bool Cargando = true;
+    private string? error;
+    private PaginaResultado<Reporte> busqueda = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarReportes();
+    }
+    public async Task CargarReportes()
+    {
+        Cargando = true;
+        error = null;
+        try
+        {
+            busqueda = await reporteApiService.GetAllAsync(filtro);
+        }
+        catch (HttpRequestException)
+        {
+            error = $"No se pudo consultar con la API";
+        }
+        finally
+        {
+            Cargando = false;
+        }
+    }
+
+    private async Task Buscar()
+    {
+        filtro.Pagina = 1;
+        await CargarReportes();
+    }
+
+    private async Task Siguiente()
+    {
+        filtro.Pagina++;
+        await CargarReportes();
+    }
+
+    private async Task Anterior()
+    {
+        filtro.Pagina--;
+        await CargarReportes();
+    }
+
+    public void VerDetalle(int id)
+    {
+        Navigation.NavigateTo($"/reportes/{id}");
+    }
+
+}

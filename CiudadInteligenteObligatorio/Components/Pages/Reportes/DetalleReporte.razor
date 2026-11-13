@@ -1,0 +1,62 @@
+﻿@page "/reportes/{Id:int}"
+@inject ReporteApiService ReporteService
+@rendermode InteractiveServer
+@using CiudadInteligenteObligatorio.Service
+@using CiudadInteligenteObligatorio.Models
+
+<h3>Reporte @Id</h3>
+
+@if (cargando)
+{
+    <p>Cargando ...</p>
+}
+else if (reporte == null)
+{
+    <p>No se encontró el reporte.</p>
+}
+else
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>Imagen</h5>
+            <p class="card-text">Categoría: @reporte.NombreCategoria</p>
+            <p class="card-text">Descripcion: @reporte.Descripcion</p>
+            <p class="card-text">Ubicacion: @reporte.Direccion - @reporte.Barrio</p>
+            <p class="card-text">Prioridad: @reporte.Prioridad</p>
+            <p class="card-text">Estado: @reporte.Estado</p>
+            <p class="card-text">Fecha: @reporte.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</p>
+            @if (reporte.FechaSolucion.HasValue)
+            {
+                var demora = reporte.FechaSolucion.Value - reporte.FechaCreacion;
+                <p>Tiempo de resolución: @demora.Days días y @demora.Hours horas</p>
+            }
+        </div>
+    </div>
+    @* Activar cuando LineaTiempoReporte tenga el parámetro Historial *@
+    @* <LineaTiempoReporte Historial="reporte.Historial" /> *@
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Reporte? reporte;
+    private bool cargando = true;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        cargando = true;
+        try
+        {
+            reporte = await ReporteService.GetByIdAsync(Id);
+        }
+        catch (HttpRequestException)
+        {
+            reporte = null;
+        }
+        finally
+        {
+            cargando = false;
+        }
+    }
+}

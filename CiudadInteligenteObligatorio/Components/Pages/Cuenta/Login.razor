@@ -1,0 +1,30 @@
+﻿@page "/login"
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 450px;">
+        <h3 class="text-center mb-4">Iniciar Sesión</h3>
+        <form>
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="loginEmail" required placeholder="Ingresa tu correo electrónico">
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="loginPassword" required placeholder="Ingresa tu contraseña">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Recordarme</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            <p class="text-center mt-3 mb-0">
+                ¿No tienes cuenta? <a href="/Registro">Regístrate aquí</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+
+@code {
+
+}

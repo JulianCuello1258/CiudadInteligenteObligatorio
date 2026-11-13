@@ -1,0 +1,18 @@
+﻿@using CiudadInteligenteObligatorio.Models
+
+<div class="card mb-2">
+    <div class="card-body">
+        <h5 class="card-title">@Reporte.Id · @Reporte.NombreCategoria</h5>
+        <p class="card-text">@Reporte.TipoProblema · @Reporte.Barrio</p>
+        <p class="card-text">@Reporte.Estado · @Reporte.FechaCreacion.ToString("dd/MM/yyyy")</p>
+        <button class="btn btn-outline-primary btn-sm" @onclick="() => OnVerDetalle.InvokeAsync(Reporte.Id)">Ver detalle</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Reporte Reporte { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<int> OnVerDetalle { get; set; }
+}

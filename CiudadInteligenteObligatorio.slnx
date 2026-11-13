@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CiudadInteligenteObligatorio/CiudadInteligenteObligatorio.csproj" />
+  <Project Path="Obligatorio.Api/Obligatorio.Api.csproj" />
+</Solution>
