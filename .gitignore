@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Datos secretos (contraseña de MySQL, token de Uploadthing)
+.env

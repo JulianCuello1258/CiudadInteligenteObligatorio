@@ -2,5 +2,7 @@
 {
     public class AsignacionRecurso : Asignacion
     {
+        public int RecursoId { get; set; }
+        public Recurso? Recurso { get; set; }
     }
 }
